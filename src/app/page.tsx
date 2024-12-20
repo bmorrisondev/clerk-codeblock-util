@@ -130,7 +130,7 @@ export default function Home() {
       ins: getSequentialArrays(markedInLines),
       del: getSequentialArrays(markedOutLines)
     };
-    navigator.clipboard.writeText(`{{ ${JSON.stringify(data).replace(/[:,]/g, '$& ')} }}`);
+    navigator.clipboard.writeText(`{${JSON.stringify(data).replace(/[:,]/g, '$& ')}}`);
   };
 
   return (
