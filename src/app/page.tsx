@@ -20,7 +20,7 @@ export default function Home() {
       contextMenuGroupId: 'navigation',
       run: (editor: any) => {
         const selections = editor.getSelections();
-        const newLines = selections.flatMap(selection => {
+        const newLines = selections.flatMap((selection: any) => {
           const startLine = selection.startLineNumber;
           const endLine = selection.endLineNumber;
           return Array.from(
@@ -30,7 +30,7 @@ export default function Home() {
         });
         
         setMarkedInLines(prevLines => {
-          const uniqueNewLines = newLines.filter(line => !prevLines.includes(line));
+          const uniqueNewLines = newLines.filter((line: any) => !prevLines.includes(line));
           return uniqueNewLines.length > 0 
             ? [...prevLines, ...uniqueNewLines].sort((a, b) => a - b)
             : prevLines;
@@ -44,7 +44,7 @@ export default function Home() {
       contextMenuGroupId: 'navigation',
       run: (editor: any) => {
         const selections = editor.getSelections();
-        const newLines = selections.flatMap(selection => {
+        const newLines = selections.flatMap((selection: any) => {
           const startLine = selection.startLineNumber;
           const endLine = selection.endLineNumber;
           return Array.from(
@@ -54,7 +54,7 @@ export default function Home() {
         });
         
         setMarkedOutLines(prevLines => {
-          const uniqueNewLines = newLines.filter(line => !prevLines.includes(line));
+          const uniqueNewLines = newLines.filter((line: any) => !prevLines.includes(line));
           return uniqueNewLines.length > 0 
             ? [...prevLines, ...uniqueNewLines].sort((a, b) => a - b)
             : prevLines;
