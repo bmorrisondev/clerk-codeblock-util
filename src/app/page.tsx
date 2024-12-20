@@ -96,6 +96,43 @@ export default function Home() {
     }
   };
 
+  const getSequentialArrays = (numbers: number[]): (number | number[])[] => {
+    if (numbers.length === 0) return [];
+    
+    const result: (number | number[])[] = [];
+    let start = numbers[0];
+    let prev = start;
+    let sequenceLength = 1;
+
+    for (let i = 1; i <= numbers.length; i++) {
+      const current = numbers[i];
+      if (current === prev + 1) {
+        sequenceLength++;
+      } else {
+        if (sequenceLength > 2) {
+          result.push([start, prev]);
+        } else {
+          for (let j = 0; j < sequenceLength; j++) {
+            result.push(start + j);
+          }
+        }
+        start = current;
+        sequenceLength = 1;
+      }
+      prev = current;
+    }
+    return result;
+  };
+
+  const copyToClipboard = () => {
+    const data = {
+      filename,
+      ins: getSequentialArrays(markedInLines),
+      del: getSequentialArrays(markedOutLines)
+    };
+    navigator.clipboard.writeText(`{{ ${JSON.stringify(data).replace(/[:,]/g, '$& ')} }}`);
+  };
+
   return (
     <>
       <style jsx global>{`
@@ -185,6 +222,13 @@ export default function Home() {
                 ))}
               </div>
             </div>
+
+            <button
+              onClick={copyToClipboard}
+              className="w-full mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+            >
+              Copy JSON to Clipboard
+            </button>
           </div>
         </div>
       </div>
